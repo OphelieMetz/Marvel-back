@@ -20,13 +20,45 @@ app.get("/", async (req, res) => {
 
 app.get("/characters", async (req, res) => {
   try {
-    const response = await axios.get(
+    const { data } = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${api}`,
     );
-    const newTest = req.query.response;
 
-    if (response) {
-      res.status(200).json({ test: newTest });
+    if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(400).json({ test: "fonctionne pas :(" });
+    }
+  } catch (error) {
+    console.log(error, "error");
+  }
+});
+
+app.get("/card", async (req, res) => {
+  try {
+    const { characterId } = req.query;
+    const { data } = await axios.get(
+      `https://lereacteur-marvel-api.herokuapp.com/character/${characterId}?apiKey=${api}`,
+    );
+
+    if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(400).json({ test: "fonctionne pas :(" });
+    }
+  } catch (error) {
+    console.log(error, "error");
+  }
+});
+
+app.get("/comics", async (req, res) => {
+  try {
+    const { data } = await axios.get(
+      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${api}`,
+    );
+
+    if (data) {
+      res.status(200).json(data);
     } else {
       res.status(400).json({ test: "fonctionne pas :(" });
     }
