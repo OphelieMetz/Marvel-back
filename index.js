@@ -20,8 +20,9 @@ app.get("/", async (req, res) => {
 
 app.get("/characters", async (req, res) => {
   try {
+    const { name } = req.query;
     const { data } = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${api}`,
+      `https://lereacteur-marvel-api.herokuapp.com/characters?name=${name}?apiKey=${api}`,
     );
 
     if (data) {
