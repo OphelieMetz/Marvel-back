@@ -36,10 +36,11 @@ app.get("/characters", async (req, res) => {
 
 app.get("/card/:id", async (req, res) => {
   try {
-    const { characterId } = req.params;
+    const { id } = req.params;
     const { data } = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/character/${characterId}?apiKey=${api}`,
+      `https://lereacteur-marvel-api.herokuapp.com/character/${id}?apiKey=${api}`,
     );
+    console.log(data);
 
     if (data) {
       res.status(200).json(data);
@@ -53,8 +54,9 @@ app.get("/card/:id", async (req, res) => {
 
 app.get("/comics", async (req, res) => {
   try {
+    for (let skip = 0; skip < 50000; skip = skip + 100) {}
     const { data } = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${api}`,
+      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${api}&limit=100&skip=15000`,
     );
 
     if (data) {
